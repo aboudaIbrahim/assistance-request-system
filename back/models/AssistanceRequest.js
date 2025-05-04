@@ -6,7 +6,7 @@ const requestSchema = new mongoose.Schema({
   category: { type: String, required: true },
   urgency: {
     type: String,
-    enum: ["Normal", "Urgent", "Critical"],
+    enum: ["Normal", "Urgent", "Critique"],
     required: true,
   },
   status: {

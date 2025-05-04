@@ -1,8 +1,13 @@
+import { supportApi } from "@/features/support/api/support.api";
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    [supportApi.reducerPath]: supportApi.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(supportApi.middleware),
 });
 
 setupListeners(store.dispatch);
