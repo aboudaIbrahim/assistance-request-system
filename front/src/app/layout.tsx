@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import ReduxProvider from "@/store/provider";
+import AlertDialog from "@/components/CustomSnackbar/CustomSnackbar";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,7 +34,10 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${geistSans.variable} ${geistMono.variable}`}
       >
-        <ReduxProvider> {children}</ReduxProvider>
+        <ReduxProvider>
+          {children}
+          <AlertDialog />
+        </ReduxProvider>
       </body>
     </html>
   );

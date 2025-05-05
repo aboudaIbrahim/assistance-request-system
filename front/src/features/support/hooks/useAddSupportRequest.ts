@@ -5,8 +5,15 @@ import { FieldValues, UseFormReturn } from "react-hook-form";
 import { ADD_SUPPORT_REQUEST_INPUTS_CONFIG } from "../components/AddSupportRequest/AddSupportRequest.constant";
 import { useCreateRequestMutation } from "../api/support.api";
 import { SupportRequest } from "@/types/support";
+import { useAppDispatch } from "@/store/hooks";
+import {
+  ERROR_AlERT,
+  SUCCESS_ALERT,
+} from "@/components/CustomSnackbar/CustomSnackbar.constant";
+import { openAlert } from "@/store/slices/alert";
 
 export const useAddSupportRequest = (formMethods: UseFormReturn) => {
+  const dispatch = useAppDispatch();
   const [submitCount, setSubmitCount] = useState(0);
 
   const { handleSubmit, reset } = formMethods;
@@ -22,7 +29,9 @@ export const useAddSupportRequest = (formMethods: UseFormReturn) => {
       await createRequest(data as SupportRequest).unwrap();
       setSubmitCount((previousState) => previousState + 1);
       reset();
+      dispatch(openAlert({ ...SUCCESS_ALERT, message: "Demande soumise" }));
     } catch (e) {
+      dispatch(openAlert({ ...ERROR_AlERT }));
       console.error(e);
     }
   });

@@ -1,9 +1,16 @@
+"use client";
 import { useUpdateStatusMutation } from "@/features/support/api/support.api";
 import { UpdateStatusModalProps } from "./UpdateStatusModal.type";
 import CustomModal from "@/components/CustomModal/CustomModal";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import TextFieldInput from "@/components/Inputs/TextFieldInput/TextFIeldInput";
 import { COMMENT_INPUT_CONFIG } from "./UpdateStatusModal.constant";
+import { useAppDispatch } from "@/store/hooks";
+import { openAlert } from "@/store/slices/alert";
+import {
+  ERROR_AlERT,
+  SUCCESS_ALERT,
+} from "@/components/CustomSnackbar/CustomSnackbar.constant";
 
 function UpdateStatusModal({
   onClose,
@@ -11,6 +18,7 @@ function UpdateStatusModal({
   requestId,
   isRequestAccepted,
 }: UpdateStatusModalProps) {
+  const dispatch = useAppDispatch();
   const formMethods = useForm({
     mode: "onChange",
     shouldFocusError: true,
@@ -28,8 +36,15 @@ function UpdateStatusModal({
           adminComment: comment,
         }).unwrap();
         onClose();
+        dispatch(
+          openAlert({ ...SUCCESS_ALERT, message: "Demande mise à jour" })
+        );
         formMethods.reset();
       } catch (e) {
+        openAlert({
+          ...ERROR_AlERT,
+          message: "Une erreur est survenue",
+        });
         console.error(e);
       }
     }
