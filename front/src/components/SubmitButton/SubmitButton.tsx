@@ -9,10 +9,12 @@ function SubmitButton({
   disabled,
   isLoading,
   sxProps,
+  isCloseButton,
 }: Readonly<SubmitButtonProps>) {
   return (
     <SubmitButtonStyle
       type="submit"
+      isCloseButton={isCloseButton}
       onClick={onClick}
       disabled={disabled}
       sx={{ ...sxProps }}

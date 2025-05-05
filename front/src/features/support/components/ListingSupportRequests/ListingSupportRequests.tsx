@@ -51,27 +51,22 @@ function ListingSupportRequests() {
             <Table stickyHeader size="medium">
               <TableHead>
                 <TableRow sx={{ backgroundColor: theme.palette.grey[200] }}>
-                  {[
-                    "Titre",
-                    "Catégorie",
-                    "Urgence",
-                    "Statut",
-                    "Commentaire",
-                    "Actions",
-                  ].map((head) => (
-                    <TableCell
-                      key={head}
-                      sx={{
-                        fontWeight: 700,
-                        textTransform: "uppercase",
-                        fontSize: "0.75rem",
-                        backgroundColor: theme.palette.grey[100],
-                        color: theme.palette.text.secondary,
-                      }}
-                    >
-                      {head}
-                    </TableCell>
-                  ))}
+                  {["Titre", "Catégorie", "Urgence", "Statut", "Actions"].map(
+                    (head) => (
+                      <TableCell
+                        key={head}
+                        sx={{
+                          fontWeight: 700,
+                          textTransform: "uppercase",
+                          fontSize: "0.75rem",
+                          backgroundColor: theme.palette.grey[100],
+                          color: theme.palette.text.secondary,
+                        }}
+                      >
+                        {head}
+                      </TableCell>
+                    )
+                  )}
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -106,14 +101,6 @@ function ListingSupportRequests() {
                           size="small"
                           sx={{ padding: 2 }}
                         />
-                      </TableCell>
-                      <TableCell
-                        sx={{ minWidth: 300 }}
-                        title={req.adminComment || "-"}
-                      >
-                        <Typography variant="body2" noWrap>
-                          {req.adminComment || "-"}
-                        </Typography>
                       </TableCell>
                       <TableCell align="center">
                         <Stack

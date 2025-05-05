@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Fade, Backdrop, useTheme, Stack } from "@mui/material";
+import { Modal, Fade, Backdrop, Stack } from "@mui/material";
 import { CustomModalProps } from "./CustomModal.type";
 import { ModalActionsRootStyle, modalStyle } from "./CustomModal.style";
 import SubmitButton from "../SubmitButton/SubmitButton";
@@ -13,7 +13,6 @@ function CustomModal({
   title,
   isLoading,
 }: CustomModalProps) {
-  const theme = useTheme();
   return (
     <Modal
       open={open}
@@ -33,24 +32,7 @@ function CustomModal({
 
             {children}
             <ModalActionsRootStyle direction="row" spacing={2}>
-              <SubmitButton
-                text="Fermer"
-                sxProps={{
-                  background: theme.palette.error.main,
-                  "&:hover": {
-                    background: theme.palette.error.main,
-                    boxShadow: "none",
-                    transform: "none",
-                  },
-                  "&:active": {
-                    transform: "none",
-                  },
-                  "&:focus": {
-                    outline: "none",
-                  },
-                }}
-                onClick={onClose}
-              />
+              <SubmitButton text="Fermer" onClick={onClose} isCloseButton />
               <SubmitButton
                 text="Confirmer"
                 onClick={onConfirm}

@@ -1,9 +1,10 @@
-import { SxProps } from "@mui/material";
+import { SxProps, Theme } from "@mui/material";
 
 export interface SubmitButtonProps {
   text: string;
   disabled?: boolean;
   isLoading?: boolean;
   onClick: () => void;
-  sxProps?: SxProps;
+  sxProps?: SxProps | SxProps<Theme>;
+  isCloseButton?: boolean;
 }

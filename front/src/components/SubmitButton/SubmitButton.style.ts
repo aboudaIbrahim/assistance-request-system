@@ -1,7 +1,11 @@
 import { Button, styled } from "@mui/material";
 
-export const SubmitButtonStyle = styled(Button)({
-  background: "linear-gradient(45deg, #6a11cb, #2575fc)",
+export const SubmitButtonStyle = styled(Button, {
+  shouldForwardProp: (prop) => prop !== "isCloseButton",
+})(({ theme }) => ({ isCloseButton }: { isCloseButton?: boolean }) => ({
+  background: isCloseButton
+    ? theme.palette.error.main
+    : "linear-gradient(45deg, #6a11cb, #2575fc)",
   borderRadius: "30px",
   padding: "12px 24px",
   fontSize: "16px",
@@ -13,7 +17,9 @@ export const SubmitButtonStyle = styled(Button)({
   width: 350,
   alignSelf: "center",
   "&:hover": {
-    background: "linear-gradient(45deg, #2575fc, #6a11cb)",
+    background: isCloseButton
+      ? theme.palette.error.dark
+      : "linear-gradient(45deg, #2575fc, #6a11cb)",
     boxShadow: "0 6px 30px rgba(0, 0, 0, 0.15)",
     transform: "scale(1.05)",
   },
@@ -23,4 +29,4 @@ export const SubmitButtonStyle = styled(Button)({
   "&:focus": {
     outline: "none",
   },
-});
+}));
