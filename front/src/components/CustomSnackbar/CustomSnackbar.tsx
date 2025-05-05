@@ -8,7 +8,7 @@ import {
   StyledSnackBar,
 } from "./CustomSnackbar.style";
 
-function AlertDialog() {
+function CustomSnackBar() {
   const alert = useAppSelector((state) => state.alertReducer.alert);
   const dispatch = useAppDispatch();
 
@@ -46,4 +46,4 @@ function AlertDialog() {
     </StyledSnackBar>
   );
 }
-export default AlertDialog;
+export default CustomSnackBar;

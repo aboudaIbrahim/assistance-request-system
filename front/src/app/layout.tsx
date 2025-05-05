@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import ReduxProvider from "@/store/provider";
-import AlertDialog from "@/components/CustomSnackbar/CustomSnackbar";
-
+import CustomSnackBar from "@/components/CustomSnackbar/CustomSnackbar";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
+import ClientAppProvider from "@/theme/clientThemeProvide";
 const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "600", "700"],
@@ -35,8 +36,11 @@ export default function RootLayout({
         className={`${inter.variable} ${geistSans.variable} ${geistMono.variable}`}
       >
         <ReduxProvider>
-          {children}
-          <AlertDialog />
+          <AppRouterCacheProvider>
+            <ClientAppProvider>
+              {children} <CustomSnackBar />
+            </ClientAppProvider>
+          </AppRouterCacheProvider>
         </ReduxProvider>
       </body>
     </html>
