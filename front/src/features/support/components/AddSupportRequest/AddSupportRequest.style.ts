@@ -17,4 +17,7 @@ export const AddSupportRequestFormContainerStyle = styled(Box)(({ theme }) => ({
   padding: theme.spacing(4),
   borderRadius: theme.spacing(1),
   boxShadow: theme.shadows[3],
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+  },
 }));

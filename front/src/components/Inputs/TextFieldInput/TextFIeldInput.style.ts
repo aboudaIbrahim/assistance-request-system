@@ -11,21 +11,29 @@ export const StyledTextField = styled(TextField)(({ theme }) => ({
 
   "& .MuiInputBase-multiline": {
     "& textarea": {
-      scrollbarWidth: "thin",
-      scrollbarColor: `${theme.palette.grey[400]} transparent`,
+      maxHeight: "100px",
+      overflowY: "auto",
+      resize: "none",
+      paddingRight: "6px",
       "&::-webkit-scrollbar": {
-        width: "6px",
+        height: 8,
+        width: 8,
       },
       "&::-webkit-scrollbar-thumb": {
-        backgroundColor: theme.palette.grey[400],
-        borderRadius: "4px",
+        backgroundColor: "#bdbdbd",
+        borderRadius: 4,
+      },
+      "&::-webkit-scrollbar-thumb:hover": {
+        backgroundColor: "#9e9e9e",
       },
       "&::-webkit-scrollbar-track": {
-        backgroundColor: "transparent",
+        backgroundColor: "#f5f5f5",
+        borderRadius: 4,
       },
     },
+    scrollbarWidth: "thin",
+    scrollbarColor: "#bdbdbd #f5f5f5",
   },
-
   // Default label
   "& .MuiInputLabel-root": {
     top: 0,

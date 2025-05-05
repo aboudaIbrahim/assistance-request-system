@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "@fontsource/inter": "^5.2.5"
+    "@fontsource/inter": "^5.2.5",
+    "axios": "^1.9.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0"

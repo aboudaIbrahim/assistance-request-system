@@ -1,4 +1,4 @@
-export type RequestStatus = "pending" | "approved" | "rejected";
+export type RequestStatus = "Pending" | "Approved" | "Rejected";
 
 export type RequestUrgency = "Normal" | "Urgent" | "Critical";
 

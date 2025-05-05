@@ -8,7 +8,7 @@ export const supportApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl }),
   tagTypes: ["Support"],
   endpoints: (builder) => ({
-    fetchRequests: builder.query<SupportRequest[], void>({
+    getAllRequests: builder.query<SupportRequest[], void>({
       query: () => "requests",
       providesTags: ["Support"],
     }),
@@ -22,12 +22,12 @@ export const supportApi = createApi({
     }),
     updateStatus: builder.mutation<
       void,
-      { id: string; status: "approved" | "rejected"; adminComment: string }
+      { id: string; status: "Approved" | "Rejected"; adminComment: string }
     >({
-      query: ({ id, ...rest }) => ({
-        url: `requests`,
-        method: "PUT",
-        body: { id, ...rest },
+      query: ({ id, status, adminComment }) => ({
+        url: `/requests/${id}`,
+        method: "PATCH",
+        body: { status, adminComment },
       }),
       invalidatesTags: ["Support"],
     }),
@@ -35,7 +35,7 @@ export const supportApi = createApi({
 });
 
 export const {
-  useFetchRequestsQuery,
+  useGetAllRequestsQuery,
   useCreateRequestMutation,
   useUpdateStatusMutation,
 } = supportApi;

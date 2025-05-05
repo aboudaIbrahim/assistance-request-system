@@ -8,9 +8,15 @@ function SubmitButton({
   text,
   disabled,
   isLoading,
+  sxProps,
 }: Readonly<SubmitButtonProps>) {
   return (
-    <SubmitButtonStyle type="submit" onClick={onClick} disabled={disabled}>
+    <SubmitButtonStyle
+      type="submit"
+      onClick={onClick}
+      disabled={disabled}
+      sx={{ ...sxProps }}
+    >
       {isLoading ? (
         <CircularProgress size={25} sx={{ color: "#ffffff" }} />
       ) : (

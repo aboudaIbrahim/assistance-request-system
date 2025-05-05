@@ -12,6 +12,8 @@ app.use(
     allowedHeaders: ["Content-Type"],
   })
 );
+
+app.use(express.json());
 app.use(bodyParser.json());
 app.use("/api/requests", requestsRouter);
 

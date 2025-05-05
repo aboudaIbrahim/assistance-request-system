@@ -29,6 +29,7 @@ function TextFieldInput({
           fullWidth
           multiline={isTextArea}
           minRows={isTextArea ? 4 : undefined}
+          maxRows={isTextArea ? 8 : undefined}
           variant="outlined"
           slotProps={{
             input: {
