@@ -1,9 +1,13 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const app = express();
 const requestsRouter = require("./routes/AssistanceRequest");
+const authRouter = require("./routes/auth");
+const seedAdmin = require("./seeders/seedAdmin");
+const seedUser = require("./seeders/seedUser");
 
 app.use(
   cors({
@@ -16,6 +20,7 @@ app.use(
 app.use(express.json());
 app.use(bodyParser.json());
 app.use("/api/requests", requestsRouter);
+app.use("/api/auth", authRouter);
 
 // MongoDB connection
 mongoose
@@ -23,7 +28,11 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("MongoDB connected"))
+  .then(() => {
+    console.log("MongoDB connected");
+    seedAdmin();
+    seedUser();
+  })
   .catch((err) => console.log(err));
 
 app.listen(5000, () => {

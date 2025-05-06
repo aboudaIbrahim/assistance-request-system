@@ -29,4 +29,7 @@ export const SubmitButtonStyle = styled(Button, {
   "&:focus": {
     outline: "none",
   },
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+  },
 }));

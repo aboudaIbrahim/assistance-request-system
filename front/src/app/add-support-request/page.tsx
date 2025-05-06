@@ -1,6 +1,11 @@
 "use client";
+import AuthGuard from "@/features/auth/components/guards/AuthGuard";
 import AddSupportRequest from "@/features/support/components/AddSupportRequest/AddSupportRequest";
 
 export default function AddSupportRequestPage() {
-  return <AddSupportRequest />;
+  return (
+    <AuthGuard role="user">
+      <AddSupportRequest />
+    </AuthGuard>
+  );
 }
