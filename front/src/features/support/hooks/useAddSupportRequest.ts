@@ -11,11 +11,12 @@ import {
   SUCCESS_ALERT,
 } from "@/components/CustomSnackbar/CustomSnackbar.constant";
 import { openAlert } from "@/store/slices/alert";
+import { useRouter } from "next/navigation";
 
 export const useAddSupportRequest = (formMethods: UseFormReturn) => {
   const dispatch = useAppDispatch();
   const [submitCount, setSubmitCount] = useState(0);
-
+  const router = useRouter();
   const { handleSubmit, reset } = formMethods;
 
   const { category, description, title, urgency } =
@@ -30,6 +31,7 @@ export const useAddSupportRequest = (formMethods: UseFormReturn) => {
       setSubmitCount((previousState) => previousState + 1);
       reset();
       dispatch(openAlert({ ...SUCCESS_ALERT, message: "Demande soumise" }));
+      router.push("/my-requests");
     } catch (e) {
       dispatch(openAlert({ ...ERROR_AlERT }));
       console.error(e);

@@ -5,4 +5,5 @@ export interface TextFIeldInputProps {
   label: string;
   rules?: RegisterOptions;
   isTextArea?: boolean;
+  placeholder?: string;
 }

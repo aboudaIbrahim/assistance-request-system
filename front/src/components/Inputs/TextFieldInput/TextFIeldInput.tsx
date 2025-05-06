@@ -11,6 +11,7 @@ function TextFieldInput({
   fieldName,
   isTextArea = false,
   rules,
+  placeholder,
 }: Readonly<TextFIeldInputProps>) {
   const { control } = useFormContext();
 
@@ -22,6 +23,7 @@ function TextFieldInput({
       render={({ field, fieldState }) => (
         <StyledTextField
           {...field}
+          placeholder={placeholder}
           label={label}
           error={!!fieldState.error}
           value={field.value ?? ""}

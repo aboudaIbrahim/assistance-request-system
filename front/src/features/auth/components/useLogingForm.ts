@@ -8,12 +8,15 @@ import {
   SUCCESS_ALERT,
 } from "@/components/CustomSnackbar/CustomSnackbar.constant";
 import { openAlert } from "@/store/slices/alert";
+import { useState } from "react";
 export const useLoginForm = (formMethods: UseFormReturn) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const [login, { isLoading: isLogging }] = useLoginMutation();
+  const [login] = useLoginMutation();
+  const [isLogging, setIsLogging] = useState(false);
   const loginHandler = formMethods.handleSubmit(async (values: FieldValues) => {
     try {
+      setIsLogging(true);
       const { user } = await login({
         email: values.email,
         password: values.password,
@@ -22,11 +25,13 @@ export const useLoginForm = (formMethods: UseFormReturn) => {
       if (user.role === "admin") {
         router.push("/requests-list");
       } else {
-        router.push("/add-support-request");
+        router.push("/my-requests");
       }
+      setIsLogging(false);
     } catch (e) {
       dispatch(openAlert({ ...ERROR_AlERT, message: "Connexion échouée" }));
       console.error(e);
+      setIsLogging(false);
     }
   });
 

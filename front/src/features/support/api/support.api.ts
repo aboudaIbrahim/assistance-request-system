@@ -18,8 +18,8 @@ export const supportApi = createApi({
   }),
   tagTypes: ["Support"],
   endpoints: (builder) => ({
-    getAllRequests: builder.query<SupportRequest[], void>({
-      query: () => "requests",
+    getAllRequests: builder.query<SupportRequest[], { search?: string }>({
+      query: ({ search }) => `requests?search=${search}`,
       providesTags: ["Support"],
     }),
     createRequest: builder.mutation<void, SupportRequest>({

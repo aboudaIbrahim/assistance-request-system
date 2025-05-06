@@ -16,6 +16,7 @@ const requestSchema = new mongoose.Schema({
   },
   adminComment: { type: String },
   createdAt: { type: Date, default: Date.now },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 });
 
 module.exports = mongoose.model("Request", requestSchema);

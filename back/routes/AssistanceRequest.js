@@ -7,12 +7,14 @@ const mongoose = require("mongoose");
 router.post("/add-new-request", authMiddleWare, async (req, res) => {
   try {
     const { title, description, category, urgency } = req.body;
+    const userId = req.user.id;
     const newRequest = new Request({
       title,
       description,
       category,
       urgency,
       createdAt: new Date(),
+      userId,
     });
     await newRequest.save();
     res.status(201).json(newRequest);
@@ -23,7 +25,23 @@ router.post("/add-new-request", authMiddleWare, async (req, res) => {
 
 router.get("", authMiddleWare, async (req, res) => {
   try {
-    const requests = await Request.find().sort({ createdAt: -1 });
+    const userId = req.user.id;
+    const isAdmin = req.user.role === "admin";
+    const search = req.query.search || "";
+
+    const searchCriteria = {
+      $or: [
+        { title: { $regex: search, $options: "i" } },
+        { description: { $regex: search, $options: "i" } },
+      ],
+    };
+
+    let baseQuery = isAdmin ? {} : { userId };
+
+    const query = search ? { ...baseQuery, ...searchCriteria } : baseQuery;
+
+    const requests = await Request.find(query).sort({ createdAt: -1 });
+
     const returnedRequests = requests.map((request) => ({
       id: request.id,
       title: request.title,
@@ -31,7 +49,10 @@ router.get("", authMiddleWare, async (req, res) => {
       category: request.category,
       description: request.description,
       urgency: request.urgency,
+      adminComment: request.adminComment,
+      createdAt: request.createdAt,
     }));
+
     res.status(200).json(returnedRequests);
   } catch (error) {
     res.status(500).json({ message: error.message });
