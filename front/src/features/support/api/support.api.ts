@@ -1,11 +1,21 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { SupportRequest } from "@/types/support";
+import { RootState } from "@/store/store";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export const supportApi = createApi({
   reducerPath: "supportApi",
-  baseQuery: fetchBaseQuery({ baseUrl }),
+  baseQuery: fetchBaseQuery({
+    baseUrl,
+    prepareHeaders: (headers, { getState }) => {
+      const token = (getState() as RootState).authReducer.token;
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
+  }),
   tagTypes: ["Support"],
   endpoints: (builder) => ({
     getAllRequests: builder.query<SupportRequest[], void>({

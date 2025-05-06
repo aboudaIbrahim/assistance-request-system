@@ -1,13 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const Request = require("../models/AssistanceRequest");
+const authMiddleWare = require("../middleware/auth");
 const mongoose = require("mongoose");
 
-
-router.post("/add-new-request", async (req, res) => {
+router.post("/add-new-request", authMiddleWare, async (req, res) => {
   try {
     const { title, description, category, urgency } = req.body;
-    const newRequest = new Request({ title, description, category, urgency });
+    const newRequest = new Request({
+      title,
+      description,
+      category,
+      urgency,
+      createdAt: new Date(),
+    });
     await newRequest.save();
     res.status(201).json(newRequest);
   } catch (error) {
@@ -15,17 +21,24 @@ router.post("/add-new-request", async (req, res) => {
   }
 });
 
-router.get("", async (req, res) => {
+router.get("", authMiddleWare, async (req, res) => {
   try {
     const requests = await Request.find().sort({ createdAt: -1 });
-    const returnedRequests = requests.map((request)=>({id:request.id,title:request.title , status:request.status , category:request.category ,description:request.description,urgency:request.urgency}))
+    const returnedRequests = requests.map((request) => ({
+      id: request.id,
+      title: request.title,
+      status: request.status,
+      category: request.category,
+      description: request.description,
+      urgency: request.urgency,
+    }));
     res.status(200).json(returnedRequests);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", authMiddleWare, async (req, res) => {
   try {
     const { status, adminComment } = req.body;
 
@@ -40,7 +53,7 @@ router.patch("/:id", async (req, res) => {
     const updated = await Request.findByIdAndUpdate(
       requestId,
       { status, adminComment },
-      { new: true } 
+      { new: true }
     );
 
     if (!updated) {

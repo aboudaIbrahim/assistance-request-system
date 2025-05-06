@@ -1,7 +1,7 @@
 import { authApi } from "@/features/auth/api/auth.api";
 import { User } from "@/features/auth/api/auth.type";
 import { encryptData } from "@/utils/storage.helpers";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: { user: User | null; token: string | null } = {
   user: null,
@@ -11,7 +11,15 @@ const initialState: { user: User | null; token: string | null } = {
 const authSlice = createSlice({
   initialState,
   name: "auth",
-  reducers: {},
+  reducers: {
+    rehydrateAuth: (
+      state,
+      action: PayloadAction<{ token: string; user: User }>
+    ) => {
+      state.token = action.payload.token;
+      state.user = action.payload.user;
+    },
+  },
   extraReducers: (builder) => {
     builder.addMatcher(
       authApi.endpoints.login.matchFulfilled,
@@ -26,5 +34,5 @@ const authSlice = createSlice({
   },
 });
 
-export const {} = authSlice.actions;
+export const { rehydrateAuth } = authSlice.actions;
 export const authReducer = authSlice.reducer;
