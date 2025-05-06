@@ -6,4 +6,5 @@ export interface TextFIeldInputProps {
   rules?: RegisterOptions;
   isTextArea?: boolean;
   placeholder?: string;
+  isPassword?: boolean;
 }

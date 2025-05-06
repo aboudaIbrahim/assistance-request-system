@@ -2,9 +2,10 @@
 
 import { Controller, useFormContext } from "react-hook-form";
 import { TextFIeldInputProps } from "./TextFieldInput.type";
-
-import { InputProps } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { IconButton, InputAdornment, InputProps } from "@mui/material";
 import { StyledTextField } from "./TextFIeldInput.style";
+import { useState } from "react";
 
 function TextFieldInput({
   label,
@@ -12,8 +13,12 @@ function TextFieldInput({
   isTextArea = false,
   rules,
   placeholder,
+  isPassword = false,
 }: Readonly<TextFIeldInputProps>) {
   const { control } = useFormContext();
+  const [showPassword, setShowPassword] = useState(false);
+  const inputType = isPassword ? (showPassword ? "text" : "password") : "text";
+  const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
   return (
     <Controller
@@ -23,6 +28,7 @@ function TextFieldInput({
       render={({ field, fieldState }) => (
         <StyledTextField
           {...field}
+          type={inputType}
           placeholder={placeholder}
           label={label}
           error={!!fieldState.error}
@@ -36,6 +42,17 @@ function TextFieldInput({
           slotProps={{
             input: {
               sx: {},
+              endAdornment: isPassword ? (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={togglePasswordVisibility}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ) : null,
             } as InputProps,
             inputLabel: {
               shrink: false,

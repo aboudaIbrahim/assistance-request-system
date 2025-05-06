@@ -31,6 +31,7 @@ function LoginForm() {
             fieldName={LOGIN_FORM_INPUTS_CONFIG.password.fieldName}
             label={LOGIN_FORM_INPUTS_CONFIG.password.label}
             rules={LOGIN_FORM_INPUTS_CONFIG.password.rules}
+            isPassword
           />
           <SubmitButton
             text="Se connecter"
